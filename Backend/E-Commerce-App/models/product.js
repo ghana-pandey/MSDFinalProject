@@ -27,7 +27,7 @@ const productSchema = mongoose.Schema({
         ref: 'Category',
         required:true
     },
-    totalRem: {
+    totalStock: {
         type: Number,
         required: true,
     },
@@ -35,14 +35,7 @@ const productSchema = mongoose.Schema({
         type: Number,
         default: 0,
     },
-    numReviews: {
-        type: Number,
-        default: 0,
-    },
-    isFeatured: {
-        type: Boolean,
-        default: false,
-    },
+    
     dateCreated: {
         type: Date,
         default: Date.now,

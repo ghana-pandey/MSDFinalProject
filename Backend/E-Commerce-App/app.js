@@ -1,6 +1,11 @@
 const express = require("express");
+const cors=require('cors')
 const mongoose = require("mongoose");
+const categoryRoute=require('./routes/categories')
+const productRoute=require('./routes/products')
+ const userRoute=require('./routes/users')
 const app = express();
+const authJwt=require('./middleware/auth')
 
 mongoose
   .connect(
@@ -12,5 +17,16 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+  app.use(cors());
+  app.use(express.json());
+  app.use(authJwt())
+  app.use((err,req,res,next)=>{
+    if(err){
+      res.status(500).json({message:"OOPs Sorry,try again later"})
+    }
+  })
+  app.use(categoryRoute)
+  app.use(productRoute)
+   app.use(userRoute)
 
 app.listen(3000, () => console.log(" 🌍 listening port 3000"));
