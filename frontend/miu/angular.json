@@ -1,0 +1,313 @@
+{
+  "version": 1,
+  "projects": {
+    "miu-e-shop": {
+      "projectType": "application",
+      "root": "apps/miu-e-shop",
+      "sourceRoot": "apps/miu-e-shop/src",
+      "prefix": "miu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/miu-e-shop",
+            "index": "apps/miu-e-shop/src/index.html",
+            "main": "apps/miu-e-shop/src/main.ts",
+            "polyfills": "apps/miu-e-shop/src/polyfills.ts",
+            "tsConfig": "apps/miu-e-shop/tsconfig.app.json",
+            "assets": [
+              "apps/miu-e-shop/src/favicon.ico",
+              "apps/miu-e-shop/src/assets"
+            ],
+            "styles": ["apps/miu-e-shop/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/miu-e-shop/src/environments/environment.ts",
+                  "with": "apps/miu-e-shop/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "miu-e-shop:build:production"
+            },
+            "development": {
+              "browserTarget": "miu-e-shop:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "miu-e-shop:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/miu-e-shop/src/**/*.ts",
+              "apps/miu-e-shop/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/miu-e-shop"],
+          "options": {
+            "jestConfig": "apps/miu-e-shop/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "miu-e-shop-e2e": {
+      "root": "apps/miu-e-shop-e2e",
+      "sourceRoot": "apps/miu-e-shop-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/miu-e-shop-e2e/cypress.json",
+            "devServerTarget": "miu-e-shop:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "miu-e-shop:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/miu-e-shop-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["miu-e-shop"]
+    },
+    "orders": {
+      "root": "libs/orders",
+      "sourceRoot": "libs/orders/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/orders/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/orders"],
+          "options": {
+            "jestConfig": "libs/orders/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "owner": {
+      "projectType": "application",
+      "root": "apps/owner",
+      "sourceRoot": "apps/owner/src",
+      "prefix": "miu",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/owner",
+            "index": "apps/owner/src/index.html",
+            "main": "apps/owner/src/main.ts",
+            "polyfills": "apps/owner/src/polyfills.ts",
+            "tsConfig": "apps/owner/tsconfig.app.json",
+            "assets": ["apps/owner/src/favicon.ico", "apps/owner/src/assets"],
+            "styles": ["apps/owner/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/owner/src/environments/environment.ts",
+                  "with": "apps/owner/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "owner:build:production"
+            },
+            "development": {
+              "browserTarget": "owner:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "owner:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/owner/src/**/*.ts",
+              "apps/owner/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/owner"],
+          "options": {
+            "jestConfig": "apps/owner/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "owner-e2e": {
+      "root": "apps/owner-e2e",
+      "sourceRoot": "apps/owner-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/owner-e2e/cypress.json",
+            "devServerTarget": "owner:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "owner:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/owner-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["owner"]
+    },
+    "products": {
+      "root": "libs/products",
+      "sourceRoot": "libs/products/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/products/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/products"],
+          "options": {
+            "jestConfig": "libs/products/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "users": {
+      "root": "libs/users",
+      "sourceRoot": "libs/users/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/users/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/users"],
+          "options": {
+            "jestConfig": "libs/users/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    }
+  }
+}

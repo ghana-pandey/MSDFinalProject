@@ -1,0 +1,55 @@
+
+<p-toast></p-toast>
+<p-card header="Products" subheader="List of Products">
+    <div class="grid">
+        <div class=col-12>
+            <p-button label="create"
+            routerLink="/addProduct" ></p-button>
+            <p-table [value]="products" responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Image</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>TotalStock</th>
+                        <th>Rating</th>
+                        <th></th>
+                        
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{product.id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.image}}</td>
+                        <td>{{product.brand}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.category.name}}</td>
+                        <td>{{product.totalStock}}</td>
+                        <td>{{product.rating}}</td>
+                        <td>{{product.dateCreated|date:'short'}}</td>
+                        <td>
+                            <p-button (click)="delProduct(product.id)"
+                            icon="pi-pi-trash" label=Del></p-button>
+                            <p-button (click)="Edit"
+                            icon="pi-pi-pencil" label=edit (click)="editProduct(product.id)"></p-button>
+                        </td>
+                        
+                    </tr>
+                </ng-template>
+            </p-table>
+
+        </div>
+    </div>
+</p-card>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  rejectButtonStyleClass="p-button-text"
+></p-confirmDialog>
+
