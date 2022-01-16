@@ -10,6 +10,8 @@ export class Product {
     category?:Category;
     totalStock?:number;
     rating?:number;
-    dateCreated?:Date;
+    dateCreated
+?:Date;
 
+    
 }

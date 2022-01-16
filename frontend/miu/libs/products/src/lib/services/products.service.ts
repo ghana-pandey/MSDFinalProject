@@ -14,16 +14,17 @@ export class ProductsService {
   getProducts():Observable<Product[]>{
     return this.http.get<Product[]>('http://localhost:3000/product')
     }
-    // addCategory(category:Category):Observable<Category> {
-    //  return this.http.post('http://localhost:3000/category',category)
+    addProduct(product:Product):Observable<Product> {
+      return this.http.post('http://localhost:3000/product',product)
+    }
     // }
-    // deleteCategory(categoryId:string):Observable<Category>{
-    //   return this.http.delete<Category>('http://localhost:3000/category/'+categoryId)
-    // }
-    // getCategory(categoryId:string):Observable<Category>{
-    //   return this.http.get<Category>('http://localhost:3000/category/'+categoryId)
-    // }
-    // editCategory(categoryId:string,category:Category):Observable<Category>{
-    //   return this.http.put<Category>('http://localhost:3000/category/'+categoryId,category)
-    // }
+    deleteProduct(productId:string):Observable<Product>{
+      return this.http.delete<Product>('http://localhost:3000/product/'+productId)
+     }
+     getProduct(productId:string):Observable<Product>{
+       return this.http.get<Product>('http://localhost:3000/product/'+productId)
+    }
+     editProd(productId:string,product:Product):Observable<Product>{
+      return this.http.put<Product>('http://localhost:3000/product/'+productId,product)
+     }
 }

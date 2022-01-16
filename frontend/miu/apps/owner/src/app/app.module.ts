@@ -21,6 +21,10 @@ import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ProductsComponent } from './products/products/products.component';
 import { AddProductsComponent } from './products/add-products/add-products.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {DropdownModule} from 'primeng/dropdown';
+
 
 
 @NgModule({
@@ -48,6 +52,9 @@ import { AddProductsComponent } from './products/add-products/add-products.compo
     InputTextModule,
     ToastModule,
     ConfirmDialogModule,
+    InputNumberModule,
+    InputTextareaModule,
+    DropdownModule,
     RouterModule.forRoot(
       [
         {
@@ -73,6 +80,14 @@ import { AddProductsComponent } from './products/add-products/add-products.compo
         {
           path: 'products',
           component: ProductsComponent,
+        },
+        {
+          path: 'addProduct',
+          component: AddProductsComponent,
+        },
+        {
+          path: 'addProduct/:id',
+          component: AddProductsComponent,
         },
       ],
       { initialNavigation: 'enabledBlocking' }

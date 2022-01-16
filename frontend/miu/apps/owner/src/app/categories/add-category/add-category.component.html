@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+
 <p-card header="Categories" [subheader]="isEditMode ? 'Edit Category' : 'Add Category'">
     <div class="grid">
         <div class=col-12>
@@ -10,12 +11,14 @@
                     <small *ngIf="categoryform.controls.name.invalid && isSubmit" class="p-error">Name is required</small>
                     
                   </div>
-                  <div class="p-field p-col">
-                    <label for="icon">Icon</label>
-                    <input formControlName="icon" id="icon" type="text" pInputText />
+                  
                     
                   </div>
-       
+                  <div class="p-fluid p-formgrid p-grid">
+                    <div class="p-field p-col">
+                      <label for="icon">Icon</label>
+                      <input formControlName="icon" id="icon" type="text" pInputText />
+                    </div>
             <p-button [label]="isEditMode ? 'Edit' : 'Add'" (click)="onSubmit()" ></p-button>
             <p-button styleClass="p-button-secondary p-mr-2" label="Cancel" (click)="onCancel()" ></p-button>
             <div class="p-grid">

@@ -1,1 +1,65 @@
-<p>add-products works!</p>
+<p-toast></p-toast>
+<p-card header="Products" [subheader]="isEditMode ? 'Edit Product' : 'Add Product'">
+  <div class="p-grid p-mb-5">
+    <div class="p-col-12">
+      <p-toolbar>   <div class="p-toolbar-group-left"></div>
+        <div class="p-toolbar-group-right">         <p-button [label]="isEditMode ? 'Edit' : 'Add'" (click)="onSubmit()" ></p-button>
+            <p-button styleClass="p-button-secondary p-mr-2" label="Cancel" (click)="onCancel()" ></p-button>
+         
+         </div> </p-toolbar>
+            <form [formGroup]="productform">
+                <div class="p-fluid p-formgrid p-grid">
+                  <div class="p-field p-col">
+                    
+                    <label for="name">Name</label>
+                    <input formControlName="name" id="name" type="text" pInputText />
+                    <small *ngIf="productform.controls.name.invalid && isSubmit" class="p-error">Name is required</small>
+                    <div class="p-field p-col">
+                        <label for="brand">Brand</label>
+                        <input formControlName="brand" id="brand" type="text" pInputText />
+                        <small *ngIf="productform.controls.brand.invalid && isSubmit" class="p-error">Brand is required</small>
+                        </div>
+                        
+                      
+                      <div class="field col">
+                        <label for="Price">Price</label>
+                        <p-inputNumber formControlName="price" mode="decimal" inputId="price" [useGrouping]="false">
+                        </p-inputNumber>
+                        <small *ngIf="productform.controls.price.invalid && isSubmit" class="p-error">Price is required</small>
+                    </div>
+              
+                    <div class="p-field p-col">
+                      <label for="TotalStock">TotalStock</label>
+                      <p-inputNumber formControlName="totalStock" mode="decimal" inputId="totalStock" [useGrouping]="false">
+                      </p-inputNumber>
+                      <small *ngIf="productform.controls.totalStock.invalid && isSubmit" class="p-error">Price is required</small>
+                  </div>
+                  <div class="p-field p-col">
+                    <label for="description">Description</label>
+                    <textarea pInputTextarea  formControlName="description"></textarea>
+                    <small *ngIf="productform.controls.description.invalid && isSubmit" class="p-error">Description is required</small>
+                  </div>
+                  <div class="p-field p-col">
+                    <label for="category"> Category</label>
+                    <p-dropdown [options]="categories" formControlName="category" optionLabel="name"></p-dropdown>
+
+                    <small *ngIf="productform.controls.category.invalid && isSubmit" class="p-error">Description is required</small>
+                  </div>
+                  <div class="p-field p-col">
+                    <label for="image">Image</label>
+                    <input formControlName="image" id="brand" type="text" pInputText />
+                    <small *ngIf="productform.controls.image.invalid && isSubmit" class="p-error">Image is required</small>
+                    </div>
+                    <div class="p-field p-col">
+                      <label for="Rating">Rating</label>
+                      <p-inputNumber formControlName="rating" mode="decimal" inputId="totalStock" [useGrouping]="false">
+                      </p-inputNumber>
+                      <small *ngIf="productform.controls.rating.invalid && isSubmit" class="p-error">Price is required</small>
+                  </div>
+
+                  
+       
+
+            <div class="p-grid">
+                <div class="p-col-12">
+                  
