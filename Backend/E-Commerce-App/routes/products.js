@@ -2,6 +2,26 @@ const {Product}=require('../models/product')
 const {Category}=require('../models/category')
 const express=require('express')
 const router=express.Router();
+const multer=require('multer')
+
+const ImageTypes = {
+  'image/png': 'png',
+  'image/jpeg': 'jpeg',
+  'image/jpg': 'jpg'
+};
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+     
+      cb(null, 'image/user');
+  },
+  filename: function (req, file, cb) {
+      const fileName = file.originalname.split(' ').join('-');
+      const extension = ImageTypes[file.mimetype];
+      cb(null, `${fileName}-${Date.now()}.${extension}`);
+  }
+});
+const uploadOp=multer({storage:storage})
 router.get('/product',async(req,res)=>{
     let getProductByCategory={};
     if(req.query.categories){
@@ -21,14 +41,20 @@ router.get('/product/:id',async(req,res)=>{
     }
     res.send(product)
 })
-router.post('/product',async (req,res)=>{
+router.post('/product',uploadOp.single('image'),async (req,res)=>{
+  console.log(req.body)
     const existCategory=await Category.findById(req.body.category)
     if(!existCategory)
     return res.status(400).send("not such caegory")
+    const file = req.file;
+    if (!file) return res.status(400).send('No image in the request');
+
+    const fileName = file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/image/user/`;
     let newProduct=new Product({
         name:req.body.name,
         description:req.body.description,
-        image:req.body.image,
+        image:`${basePath}${fileName}`,
         brand:req.body.brand,
         price:req.body.price,
         category:req.body.category,
@@ -36,17 +62,30 @@ router.post('/product',async (req,res)=>{
         rating:req.body.rating
     })
   newProduct=await newProduct.save();
+  console.log(newProduct)
   if (!newProduct) {
     res.status(404).send("can not be created");
   }
   res.status(201).send(newProduct);
 });
 
-router.put('/product/:id',async (req,res)=>{
+router.put('/product/:id',uploadOp.single('image'),async (req,res)=>{
+  const product=await Product.findById(req.params.id)
+  const file=req.file;
+  let imagePath;
+  if(file){
+    const fileName=file.filename;
+    const basePath = `${req.protocol}://${req.get('host')}/image/user/`;
+        imagePath = `${basePath}${fileName}`;
+  }
+  else
+  {
+    imagePath=product.image
+  }
     const updateProduct=await Product.findByIdAndUpdate(req.params.id,{
         name:req.body.name,
         description:req.body.description,
-        image:req.body.image,
+        image:imagePath,
         brand:req.body.brand,
         price:req.body.price,
         category:req.body.category,

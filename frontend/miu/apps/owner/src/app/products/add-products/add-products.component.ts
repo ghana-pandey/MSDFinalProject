@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-labels */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -18,6 +19,7 @@ export class AddProductsComponent implements OnInit {
   isEditMode?: boolean = false;
   productId: string;
   categories = [];
+  imageDisplay: string | ArrayBuffer;
 
   constructor(
     private formbuild: FormBuilder,
@@ -29,10 +31,11 @@ export class AddProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getCategory.getCategories().subscribe((categories) => {
-      console.log(categories);
-      this.categories = categories;
-    });
+    this.formInital();
+    this.getCategories();
+    this.checkIfEdit();
+  }
+  private formInital() {
     this.productform = this.formbuild.group({
       name: ['', Validators.required],
       brand: ['', Validators.required],
@@ -40,40 +43,70 @@ export class AddProductsComponent implements OnInit {
       category: ['', Validators.required],
       totalStock: ['', Validators.required],
       description: ['', Validators.required],
-      image: ['', Validators.required],
+      image: [''],
       rating: ['', Validators.required],
     });
-    this.checkIfEdit();
   }
   onCancel() {
     this.goback.back();
   }
-  onSubmit() {
-    this.isSubmit = true;
-    const product: Product = {
-      id: this.productId,
-      name: this.productform.controls.name.value,
-      brand: this.productform.controls.brand.value,
-      price: this.productform.controls.price.value,
-      category: this.productform.controls.category.value,
-      totalStock: this.productform.controls.totalStock.value,
-      description: this.productform.controls.description.value,
-      image: this.productform.controls.image.value,
-      rating: this.productform.controls.rating.value,
-    };
-    if (this.isEditMode) {
-      this.editsProduct(product);
-    } else {
-      this.newProduct(product);
+  imageUpload(event) {
+    console.log(event);
+    console.log(this.productform);
+    const file = event.target.files[0];
+    if (file) {
+      this.productform.patchValue({ image: file });
+      this.productform.get('image').updateValueAndValidity();
+      const fileReader = new FileReader();
+      fileReader.onload = () => {
+        this.imageDisplay = fileReader.result;
+      };
+      fileReader.readAsDataURL(file);
     }
   }
-  private newProduct(product) {
-    this.addProduct.addProduct(product).subscribe(
-      (response) => {
+  onSubmit() {
+    this.isSubmit = true;
+    const productFormData = new FormData();
+    id: this.productId;
+    Object.keys(this.productForm).map((key) => {
+      productFormData.append(key, this.productForm[key].value);
+    });
+
+    // productformdata.append('name',this.productform.controls.name.value)
+    // productformdata.append('brand',this.productform.controls.brand.value)
+    // productformdata.append('price',this.productform.controls.price.value)
+    // productformdata.append('category',this.productform.controls.category.value)
+    // productformdata.append('totalStock',this.productform.controls.totalStock.value)
+    // productformdata.append('description',this.productform.controls.description.value)
+    // productformdata.append('image',this.productform.controls.image.value)
+    // productformdata.append('rating',this.productform.controls.rating.value)
+    // id: this.productId,
+
+    // name: this.productform.controls.name.value,
+    // brand: this.productform.controls.brand.value,
+    // price: this.productform.controls.price.value,
+    // category: this.productform.controls.category.value,
+    // totalStock: this.productform.controls.totalStock.value,
+    // description: this.productform.controls.description.value,
+    // image: this.productform.controls.image.value,
+    // rating: this.productform.controls.rating.value,
+
+    if (this.isEditMode) {
+      this.editsProduct(productFormData);
+    } else {
+      this.newProduct(productFormData);
+    }
+  }
+  private newProduct(productdata: FormData) {
+    console.log('prod', productdata);
+    this.addProduct.addProducts(productdata).subscribe(
+      (product: Product) => {
+        console.log(product);
+
         this.messageService.add({
           severity: 'success',
           summary: 'Added',
-          detail: `Product ${product.name} is added!`,
+          detail: `Product is added!`,
         });
         timer(2000)
           .toPromise()
@@ -85,7 +118,7 @@ export class AddProductsComponent implements OnInit {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Category is not created!',
+          detail: 'Product is not created!',
         });
       }
     );
@@ -96,7 +129,7 @@ export class AddProductsComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Edited',
-          detail: `Category ${product.name} is Edited!`,
+          detail: `Category  is Edited!`,
         });
         timer(2000)
           .toPromise()
@@ -113,7 +146,11 @@ export class AddProductsComponent implements OnInit {
       }
     );
   }
-
+  private getCategories() {
+    this.getCategory.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
   private checkIfEdit() {
     this.route.params.subscribe((params) => {
       if (params.id) {
@@ -131,10 +168,14 @@ export class AddProductsComponent implements OnInit {
           this.productform.controls.totalStock.setValue(getValue.totalStock);
           this.productform.controls.category.setValue(getValue.category);
           this.productform.controls.description.setValue(getValue.description);
-          this.productform.controls.image.setValue(getValue.image);
+          this.imageDisplay = getValue.image;
+          this.productForm.image.updateValueAndValidity();
           this.productform.controls.rating.setValue(getValue.rating);
         });
       }
     });
+  }
+  get productForm() {
+    return this.productform.controls;
   }
 }

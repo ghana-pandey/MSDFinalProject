@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AddCategoryComponent } from './categories/add-category/add-category.component';
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -24,6 +24,13 @@ import { AddProductsComponent } from './products/add-products/add-products.compo
 import { InputNumberModule } from 'primeng/inputnumber';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DropdownModule} from 'primeng/dropdown';
+import {FieldsetModule} from 'primeng/fieldset';
+
+import { UsersComponent } from './user/users/users.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
+import { OrdersComponent } from './Order/orders/orders.component';
+import { OrderDetailsComponent } from './Order/order-details/order-details.component';
+import { AuthinterceptorInterceptor, GuardService, UsersModule } from '@miu/users';
 
 
 
@@ -38,6 +45,10 @@ import {DropdownModule} from 'primeng/dropdown';
     AddCategoryComponent,
     ProductsComponent,
     AddProductsComponent,
+    UsersComponent,
+    AddUserComponent,
+    OrdersComponent,
+    OrderDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,45 +66,77 @@ import {DropdownModule} from 'primeng/dropdown';
     InputNumberModule,
     InputTextareaModule,
     DropdownModule,
+    FieldsetModule,
+    UsersModule,
     RouterModule.forRoot(
       [
         {
           path: '',
           component: AdminhomeComponent,
+          canActivate:[GuardService]
         },
         {
           path: 'adminhome',
           component: DashboardComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'categories',
           component: CategoriesComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'addCategory',
           component: AddCategoryComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'addCategory/:id',
           component: AddCategoryComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'products',
           component: ProductsComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'addProduct',
           component: AddProductsComponent,
+          canActivate:[GuardService],
         },
         {
           path: 'addProduct/:id',
           component: AddProductsComponent,
+          canActivate:[GuardService],
+        },
+        {
+          path: 'users',
+          component: UsersComponent,
+          canActivate:[GuardService],
+        },
+        {
+          path: 'addUser',
+          component: AddUserComponent,
+          canActivate:[GuardService],
+        },
+        {
+          path: 'orders',         
+          component: OrdersComponent,
+          canActivate:[GuardService],
+        },
+      {
+          path: 'orders/:id',
+          component: OrderDetailsComponent,
+        canActivate:[GuardService],
         },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),
   ],
-  providers: [MessageService,ConfirmationService],
+  providers: [MessageService,ConfirmationService,
+  {provide:HTTP_INTERCEPTORS,useClass:AuthinterceptorInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

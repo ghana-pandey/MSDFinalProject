@@ -14,8 +14,9 @@ export class ProductsService {
   getProducts():Observable<Product[]>{
     return this.http.get<Product[]>('http://localhost:3000/product')
     }
-    addProduct(product:Product):Observable<Product> {
-      return this.http.post('http://localhost:3000/product',product)
+    addProducts(productdata:FormData):Observable<Product> {
+      console.log("i am working")
+      return this.http.post<Product>('http://localhost:3000/product',productdata)
     }
     // }
     deleteProduct(productId:string):Observable<Product>{
@@ -27,4 +28,5 @@ export class ProductsService {
      editProd(productId:string,product:Product):Observable<Product>{
       return this.http.put<Product>('http://localhost:3000/product/'+productId,product)
      }
+    
 }

@@ -1,0 +1,28 @@
+<div class="login">
+    <h1>Login to E-Shop-App</h1>
+    <form [formGroup]="loginform">
+      <p><input type="text" formControlName="email" name="login"  placeholder="Username or Email" pInputText></p>
+      <small *ngIf="loginform.controls.email.invalid && isSubmit" class="p-error"
+      ><span *ngIf="loginform.controls.email.errors.required">email is required</span>
+      <span *ngIf="loginform.controls.email.errors.email">email is invalid</span></small
+    >
+      <p><input type="password" name="password" formControlName="password" placeholder="Password" pInputText></p>
+      
+        <small *ngIf="loginform.controls.password.invalid && isSubmit" class="p-error"
+              >Password is required</small
+            >
+            <p>
+        <label>
+          <input type="checkbox" name="remember_me" id="remember_me">
+          Remember me on this computer
+        </label>
+      </p>
+      <p class="submit"><input type="submit" name="commit" value="Login" (click)="login()" ></p>
+      <div class="col-12" *ngIf="isSubmit && checkError">
+          <small class="p-error">{{showMessage}}</small>
+      </div>
+    </form>
+  </div>
+
+  
+ 

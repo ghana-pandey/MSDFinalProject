@@ -53,6 +53,7 @@ export class ProductsComponent implements OnInit {
 
     private getAllProducts(){
       this.getProducts.getProducts().subscribe((products)=>{
+        console.log(products)
         this.products=products;
       })
     }

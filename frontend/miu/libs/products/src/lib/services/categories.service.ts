@@ -15,6 +15,7 @@ export class CategoriesService {
     return this.http.get<Category[]>('http://localhost:3000/category')
     }
     addCategory(category:Category):Observable<Category> {
+      console.log("hi")
      return this.http.post('http://localhost:3000/category',category)
     }
     deleteCategory(categoryId:string):Observable<Category>{

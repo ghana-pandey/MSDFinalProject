@@ -1,0 +1,49 @@
+
+<div>
+<p-fieldset legend="Order Details" [toggleable]="true">
+    Order Details
+    <div class="grid">
+        <div class="col-4">
+            <h5>Order Id</h5> <p>{{order.id}}</p>
+        </div>
+        <div class="col-4">
+            <h5>Order date</h5> <p>{{order.dateOrdered|date:'short'}}</p>
+        </div>
+        <div class="col-4">
+            <h5>Order Price</h5> <p>{{order.totalPrice|currency}}</p>
+        </div>
+        <div class="col-4">
+            <h5>Order status</h5>
+            <p-dropdown [options]="ostatus"></p-dropdown>
+        </div>
+    </div>
+    
+</p-fieldset>
+</div>
+<!-- <div>
+    <p-table [value]="order" responsiveLayout="scroll">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th></th>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body">
+            <tr>
+                <td>{{order.orderItems.product.name}}</td>
+                <td>{{item.product.brand}}</td>
+                <td>{{item.product.category.name}}</td>
+                <td>
+                    <p-button (click)="delCategory(category.id)"
+                    icon="pi-pi-trash" label=Del></p-button>
+                    <p-button (click)="Edit"
+                    icon="pi-pi-pencil" label=edit (click)="editCategory(category.id)"></p-button>
+                </td>
+                
+            </tr>
+        </ng-template>
+    </p-table> -->
+

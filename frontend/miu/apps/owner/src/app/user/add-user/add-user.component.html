@@ -1,0 +1,85 @@
+<p-toast></p-toast>
+
+<p-card header="Users" subheader="Add Users">
+  <div class="grid">
+    <div class="col-12">
+      <form [formGroup]="registerform">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col">
+            <label for="name">Name</label>
+            <input formControlName="name" id="name" type="text" pInputText />
+            <small
+              *ngIf="registerform.controls.name.invalid && isSubmit"
+              class="p-error"
+              >Name is required</small
+            >
+          </div>
+        
+        <div class="p-field p-col-4">
+          <label for="email">Email</label>
+          <input formControlName="email" id="email" type="text" pInputText />
+          <small *ngIf="registerform.controls.email.invalid && isSubmit" class="p-error"
+            ><span *ngIf="registerform.controls.email.errors.required">email is required</span>
+            <span *ngIf="registerform.controls.email.errors.email">email is invalid</span></small
+          >
+        </div>
+        <div class="p-field p-col-4">
+            <label for="password">Password</label>
+            <input formControlName="password" id="password" type="password" pInputText />
+            <small *ngIf="registerform.controls.password.invalid && isSubmit" class="p-error"
+              >Password is required</small
+            >
+            <br><br>
+          </div>
+          <div class="p-field p-col">
+            <label for="phone">Phone</label>
+            <input formControlName="phone" id="phone" type="text" pInputText />
+            <small *ngIf="registerform.controls.phone.invalid && isSubmit" class="p-error"
+              >phone is required</small
+            >
+          </div>
+          <div class="p-field p-col">
+            <label for="street">street</label>
+            <input formControlName="street" id="phone" type="text" pInputText />
+           
+          </div>
+          <div class="p-field p-col">
+            <label for="apartment">street</label>
+            <input formControlName="apartment" id="apartment" type="text" pInputText />
+           
+          </div>
+          <div class="p-field p-col">
+            <label for="street">street</label>
+            <input formControlName="street" id="phone" type="text" pInputText />
+           
+          </div>
+          <div class="p-field p-col">
+            <label for="zip">zip</label>
+            <input formControlName="zip" id="zip" type="text" pInputText />
+           
+          </div>
+          <div class="p-field p-col">
+            <label for="city">street</label>
+            <input formControlName="city" id="city" type="text" pInputText />
+           
+          </div>
+          <div class="p-field p-col">
+            <label for="country">country</label>
+            <input formControlName="country" id="country" type="text" pInputText />
+           
+          </div>
+          
+          <br><br>
+          <p-button label="Add" (click)="onSubmit()"></p-button>
+          <p-button
+            styleClass="p-button-secondary p-mr-2"
+            label="Cancel"
+            (click)="onCancel()"
+          ></p-button>
+          <div class="p-grid">
+            <div class="p-col-12"></div>
+          </div>
+        </div>
+      </form>
+    </div></div
+></p-card>

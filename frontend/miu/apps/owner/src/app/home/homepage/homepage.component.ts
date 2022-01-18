@@ -1,6 +1,7 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit } from '@angular/core';
+import { CheckauthService } from '@miu/users';
 
 @Component({
   selector: 'miu-homepage',
@@ -9,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private logoutService:CheckauthService) { }
 
   ngOnInit(): void {
   }
-
+userlogout(){
+this.logoutService.logout();
+}
 }

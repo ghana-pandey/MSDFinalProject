@@ -41,15 +41,29 @@
                   </div>
                   <div class="p-field p-col">
                     <label for="category"> Category</label>
-                    <p-dropdown [options]="categories" formControlName="category" optionLabel="name"></p-dropdown>
+                    <p-dropdown [options]="categories" formControlName="category" optionLabel="name" optionValue="id"></p-dropdown>
 
                     <small *ngIf="productform.controls.category.invalid && isSubmit" class="p-error">Description is required</small>
-                  </div>
-                  <div class="p-field p-col">
-                    <label for="image">Image</label>
-                    <input formControlName="image" id="brand" type="text" pInputText />
-                    <small *ngIf="productform.controls.image.invalid && isSubmit" class="p-error">Image is required</small>
-                    </div>
+                  </div><br><br>
+                   <!-- <div>
+                    <p-button label="pickImage" (click)="filepicker.click()"></p-button>
+                    <input type=file #filepicker (change)="imageUpload($event)">
+                  </div>  -->
+                  <div class="p-field p-col-12">
+                    <label for="name">Main Image</label>
+                    <input
+                      type="file"
+                      
+                      accept="image/*" (change)="imageUpload($event)"
+                      
+                  
+                    /> </div>
+                    <div>
+                      <img style ="width:100%"[src]="imageDisplay" alt="">
+                    </div> 
+                    <small *ngIf="productform.controls.image.invalid && isSubmit" class="p-error"
+                      >Image is required</small
+                    >
                     <div class="p-field p-col">
                       <label for="Rating">Rating</label>
                       <p-inputNumber formControlName="rating" mode="decimal" inputId="totalStock" [useGrouping]="false">

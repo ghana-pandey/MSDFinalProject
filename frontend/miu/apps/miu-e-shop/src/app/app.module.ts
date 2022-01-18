@@ -14,7 +14,7 @@ import {AccordionModule} from 'primeng/accordion'
   declarations: [AppComponent, NxWelcomeComponent, HomepageComponent, ProductsComponent, HeaderComponent, FooterComponent],
   imports: [BrowserModule,BrowserAnimationsModule,RouterModule.forRoot([{
     path:'',
-    component:HomepageComponent
+    component:HomepageComponent,
   },
   {path:'products',
 component:ProductsComponent}
