@@ -135,7 +135,7 @@ import { AuthinterceptorInterceptor, GuardService, UsersModule } from '@miu/user
     ),
   ],
   providers: [MessageService,ConfirmationService,
-  {provide:HTTP_INTERCEPTORS,useClass:AuthinterceptorInterceptor,multi:true}
+  // {provide:HTTP_INTERCEPTORS,useClass:AuthinterceptorInterceptor,multi:true}
   ],
   bootstrap: [AppComponent],
 })

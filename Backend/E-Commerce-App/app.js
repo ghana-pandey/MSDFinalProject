@@ -20,14 +20,14 @@ mongoose
   });
   app.use(cors());
   app.use(express.json());
-  app.use(authJwt())
-  app.use('/image/user',express.static(__dirname+'/image/user'))
+  //app.use(authJwt())
+ app.use('/image/user',express.static(__dirname+'/image/user/'))
   
-  app.use((err,req,res,next)=>{
-    if(err){
-      res.status(500).json({message:"OOPs Sorry,try again later"})
-    }
-  })
+  // app.use((err,req,res,next)=>{
+  //   if(err){
+  //     res.status(500).json({message:"OOPs Sorry,try again later"})
+  //   }
+  // })
   app.use(categoryRoute)
   app.use(productRoute)
    app.use(userRoute)

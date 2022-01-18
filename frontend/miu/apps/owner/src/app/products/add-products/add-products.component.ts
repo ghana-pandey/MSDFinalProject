@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-labels */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -66,20 +64,20 @@ export class AddProductsComponent implements OnInit {
   }
   onSubmit() {
     this.isSubmit = true;
-    const productFormData = new FormData();
-    id: this.productId;
-    Object.keys(this.productForm).map((key) => {
-      productFormData.append(key, this.productForm[key].value);
-    });
+    const productformdata = new FormData();
+    
+    // Object.keys(this.productForm).map((key) => {
+    //   productFormData.append(key, this.productForm[key].value);
+    // });
 
-    // productformdata.append('name',this.productform.controls.name.value)
-    // productformdata.append('brand',this.productform.controls.brand.value)
-    // productformdata.append('price',this.productform.controls.price.value)
-    // productformdata.append('category',this.productform.controls.category.value)
-    // productformdata.append('totalStock',this.productform.controls.totalStock.value)
-    // productformdata.append('description',this.productform.controls.description.value)
-    // productformdata.append('image',this.productform.controls.image.value)
-    // productformdata.append('rating',this.productform.controls.rating.value)
+    productformdata.append('name',this.productform.controls.name.value)
+    productformdata.append('brand',this.productform.controls.brand.value)
+    productformdata.append('price',this.productform.controls.price.value)
+    productformdata.append('category',this.productform.controls.category.value)
+    productformdata.append('totalStock',this.productform.controls.totalStock.value)
+    productformdata.append('description',this.productform.controls.description.value)
+    productformdata.append('image',this.productform.controls.image.value)
+    productformdata.append('rating',this.productform.controls.rating.value)
     // id: this.productId,
 
     // name: this.productform.controls.name.value,
@@ -92,9 +90,9 @@ export class AddProductsComponent implements OnInit {
     // rating: this.productform.controls.rating.value,
 
     if (this.isEditMode) {
-      this.editsProduct(productFormData);
+      this.editsProduct(productformdata);
     } else {
-      this.newProduct(productFormData);
+      this.newProduct(productformdata);
     }
   }
   private newProduct(productdata: FormData) {

@@ -9,9 +9,10 @@ import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { HeaderComponent } from './mutual/header/header.component';
 import { FooterComponent } from './mutual/footer/footer.component';
-import {AccordionModule} from 'primeng/accordion'
+import {AccordionModule} from 'primeng/accordion';
+import { NavbarComponent } from './mutual/navbar/navbar.component'
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, HomepageComponent, ProductsComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, NxWelcomeComponent, HomepageComponent, ProductsComponent, HeaderComponent, FooterComponent, NavbarComponent],
   imports: [BrowserModule,BrowserAnimationsModule,RouterModule.forRoot([{
     path:'',
     component:HomepageComponent,

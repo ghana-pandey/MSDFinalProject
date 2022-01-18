@@ -33,7 +33,7 @@ export class AuthinterceptorInterceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         'Content-Type' : 'application/json; charset=utf-8',
-        'Accept'       : 'application/json',
+        // 'Accept'       : 'application/json',
         'Authorization': `Bearer ${localStorage.getItem('token is')}`,
       },
     });
