@@ -7,8 +7,8 @@ const aws = require("aws-sdk");
 
 
 const s3 = new aws.S3({
-    accessKeyId: "AKIAQIAHQ3CDFJOO2RWD",
-    secretAccessKey:"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",
+    accessKeyId: "",
+    secretAccessKey:"",
     
   });
   exports.uploadS3 =multer({
