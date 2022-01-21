@@ -1,6 +1,8 @@
 const express = require("express");
 const cors=require('cors')
 const mongoose = require("mongoose");
+const swaggerJSDoc=require('swagger-jsdoc')
+const swaggerUi=require('swagger-ui-express')
 const categoryRoute=require('./routes/categories')
 const productRoute=require('./routes/products')
  const userRoute=require('./routes/users')
@@ -20,6 +22,25 @@ mongoose
   });
   app.use(cors());
   app.use(express.json());
+  const options ={
+    definition: {
+        openapi : '3.0.0',
+        info : {
+            title: 'E-Commerce API Final Project',
+            version: '1.0.0'
+        },
+        servers:[
+            {
+                url: 'http://localhost:3000/'
+            }
+        ]
+    },
+    apis: ['routes/*.js'] 
+}
+const swaggerSpec = swaggerJSDoc(options)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+ 
+
   //app.use(authJwt())
  app.use('/image/user',express.static(__dirname+'/image/user/'))
   

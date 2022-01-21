@@ -3,6 +3,52 @@ const { OrderItem } = require("../models/order-item");
 const express = require("express");
 
 const router = express.Router();
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Order:
+ *              type: object
+ *              proporties:
+ *                  streetName:
+ *                      type: string
+ *                  city:
+ *                       type: string
+ *                  zip:
+ *                       type: string
+ *                  country:  
+ *                       type: string
+ *                  status:
+ *                        type: string
+ *                  totalPrice:
+ *                        type: string
+ *                  user:
+ *                        type: object
+ *                        proporties:
+ *                            name:
+ *                              type: string 
+ * 
+ *                   
+ */
+
+
+
+/**
+ * @swagger
+ * /orders:
+ *  get:
+ *      summary: This api is used to check if get Orders method is working or not
+ *      description: Should return all the orders from the database
+ *      responses:
+ *          200:
+ *              description: sucess
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#components/schemas/Order'
+ */
 
 router.get("/orders", async (req, res) => {
   const orders = await Order.find().populate("user", "name");
@@ -12,6 +58,29 @@ router.get("/orders", async (req, res) => {
     res.send(orders);
   }
 });
+/**
+ * @swagger
+ * /orders/{id}:
+ *  get:
+ *      summary: To get the partiular order of particular user 
+ *      description: this api is used to fetch single order from DB using particular id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: String ID required
+ *            schema:
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: this api is used to fetch indivudual order from mongodb
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          items:
+ *                              $ref: '#components/schemas/Order'
+ */
 router.get("/orders/:id", async (req, res) => {
   const order = await Order.findById(req.params.id)
     .populate("user", "name")

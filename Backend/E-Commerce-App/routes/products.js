@@ -3,6 +3,58 @@ const { Category } = require("../models/category");
 const express = require("express");
 const router = express.Router();
 const { uploadS3 } = require("../middleware/aws-s3");
+/**
+ * @swagger
+ *  components:
+ *      schemas:
+ *          Product:
+ *              type: object
+ *              properties:
+ *                  name:
+ *                      type: string
+ *                  brand:
+ *                       type: string
+ *                  description:
+ *                       type: string
+ *                  image:
+ *                        type: string
+ *                  price:
+ *                        type: number
+ *                  totalStock:
+ *                        type: number
+ *                  rating:
+ *                        type: number
+ *                  category:
+ *                        type: object
+ *                        proporties:
+ *                            name:
+ *                                type: string
+ *                            icon:
+ *                                type: string
+ *                          
+ * 
+ *                    
+ *                        
+ */
+
+
+/**
+ 
+ * @swagger
+ * /product:
+ *  get:
+ *      summary: To get all products
+ *      description: this api is used to fetch all the product
+ *      responses:
+ *          200:
+ *              description: this api is used to fetch product from mongodb
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#components/schemas/Product'
+ */
 
 router.get("/product", async (req, res) => {
   let getProductByCategory = {};
@@ -15,12 +67,52 @@ router.get("/product", async (req, res) => {
   }
   res.send(products);
 });
+/**
+ * @swagger
+ * /product/{id}:
+ *  get:
+ *      summary: To get particular product with id
+ *      description: this api is used to fetch single product from DB using particular id
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: String ID required
+ *            schema:
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: this api is used to fetch product from mongodb
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          items:
+ *                              $ref: '#components/schemas/Product'
+ */
 router.get("/product/:id", async (req, res) => {
   const product = await Product.findById(req.params.id).populate("category");
   if (!product) {
     res.status(500).json({ sucess: false });
   }
   res.send(product);
+
+  /**
+ * @swagger
+ * /product:
+ *  post:
+ *      summary: used to insert new product 
+ *      description: this api is used to insert new product
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#components/schemas/Product'
+ *      responses:
+ *          200:
+ *              description: New Product Created
+ */
 });
 router.post("/product", uploadS3.single("image"), async (req, res) => {
   console.log(req.body);
@@ -46,7 +138,35 @@ router.post("/product", uploadS3.single("image"), async (req, res) => {
   }
   res.status(201).send({ newproduct: newProduct, file: file.location });
 });
-
+/**
+ * @swagger
+ * /product/{id}:
+ *  put:
+ *      summary: used to update the product in category
+ *      description: this api is used to update the product
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: string ID required
+ *            schema:
+ *              type: string
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#components/schemas/Product'
+ *      responses:
+ *          201:
+ *              description: Updated Successfully
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#components/schemas/Product'
+ */
 router.put("/product/:id", uploadS3.single("image"), async (req, res) => {
   const product = await Product.findById(req.params.id);
   const file = req.file;
@@ -77,6 +197,23 @@ router.put("/product/:id", uploadS3.single("image"), async (req, res) => {
   }
   res.send(updateProduct);
 });
+/**
+ * @swagger
+ * /product/{id}:
+ *  delete:
+ *      summary: this api is use to delete individual product from mongodb database
+ *      description: this api is used to delete product  data from mongodb
+ *      parameters:
+ *          - in: path
+ *            name: id
+ *            required: true
+ *            description: sring ID required
+ *            schema:
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: data is deleted
+ */
 router.delete("/product/:id", async (req, res) => {
   let delProduct = await Product.findByIdAndRemove(req.params.id);
   if (delProduct) {
